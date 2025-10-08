@@ -1,0 +1,39 @@
+---
+interface ContentBlock {
+  type: 'paragraph' | 'image';
+  text?: string;
+  src?: string;
+  alt?: string;
+}
+
+interface Props {
+  content: ContentBlock[];
+}
+
+const { content } = Astro.props;
+---
+
+<div class="space-y-6">
+  {content.map((block) => {
+    if (block.type === 'paragraph') {
+      return (
+        <p class="text-base leading-relaxed text-gray-700">
+          {block.text}
+        </p>
+      );
+    }
+
+    if (block.type === 'image') {
+      return (
+        <div class="relative w-full overflow-hidden rounded-lg bg-gray-100">
+          <img
+            src={block.src}
+            alt={block.alt}
+            class="w-full h-auto object-cover"
+            loading="lazy"
+          />
+        </div>
+      );
+    }
+  })}
+</div>

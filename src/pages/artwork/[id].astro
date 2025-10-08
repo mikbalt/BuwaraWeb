@@ -1,0 +1,84 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import Header from '../../components/Header.astro';
+import ArtworkContent from '../../components/ArtworkContent.astro';
+import artworksData from '../../data/artworks.json';
+
+export function getStaticPaths() {
+  return artworksData.map((artwork) => ({
+    params: { id: artwork.id },
+    props: { artwork }
+  }));
+}
+
+const { artwork } = Astro.props;
+---
+
+<MainLayout title={`${artwork.title} - Buwara`} showSplash={true}>
+  <Header location={artwork.location} articleNumber={artwork.id} />
+
+  <div class="max-w-2xl mx-auto px-4 py-8 pb-16">
+    <!-- Hero Section -->
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4 text-balance">
+        {artwork.title}
+      </h1>
+
+      <div class="flex items-center gap-4 text-sm text-gray-600">
+        <div>
+          <span class="font-medium">Artwork by</span> {artwork.artist}
+        </div>
+        <div>
+          <span class="font-medium">Article by</span> {artwork.articleBy}
+        </div>
+      </div>
+    </div>
+
+    <!-- Questions Section -->
+    <div class="space-y-12">
+      {artwork.questions.map((question) => (
+        <section class="space-y-4">
+          <!-- Question Header -->
+          <div class="border-l-4 border-gray-900 pl-4">
+            <h2 class="text-xl font-bold text-gray-900 mb-1">
+              Question number {question.number}
+            </h2>
+            <p class="text-lg text-gray-700 italic">
+              "{question.question}"
+            </p>
+          </div>
+
+          <!-- Content -->
+          <ArtworkContent content={question.content} />
+
+          <!-- Public Response Section (if enabled) -->
+          {question.publicResponse && (
+            <div class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+              <h3 class="text-sm font-semibold text-gray-900 mb-2">
+                Public Response
+              </h3>
+              <p class="text-sm text-gray-600">
+                Share your thoughts about this artwork...
+              </p>
+              <div class="mt-3">
+                <textarea
+                  class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent resize-none"
+                  rows="3"
+                  placeholder="Your response..."
+                ></textarea>
+              </div>
+            </div>
+          )}
+        </section>
+      ))}
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-16 pt-8 border-t border-gray-200 text-center">
+      <div class="text-sm text-gray-600">
+        <p>Contact & Shop</p>
+        <p class="font-medium text-gray-900 mt-1">@buwara</p>
+      </div>
+    </footer>
+  </div>
+</MainLayout>

@@ -1,0 +1,46 @@
+[
+  {
+    "id": "makassar-001",
+    "title": "Go to Makassar",
+    "artist": "Artist Name",
+    "articleBy": "Writer Name",
+    "location": "Makassar",
+    "questions": [
+      {
+        "number": 1,
+        "question": "What brought you to this place?",
+        "content": [
+          {
+            "type": "paragraph",
+            "text": "Your opening paragraph here..."
+          },
+          {
+            "type": "image",
+            "src": "/images/artworks/makassar-001-1.jpg",
+            "alt": "Description of image"
+          },
+          {
+            "type": "paragraph",
+            "text": "Additional content here..."
+          }
+        ]
+      },
+      {
+        "number": 2,
+        "question": "What did you find there?",
+        "content": [
+          {
+            "type": "image",
+            "src": "/images/artworks/makassar-001-2.jpg",
+            "alt": "Image description"
+          },
+          {
+            "type": "paragraph",
+            "text": "Response paragraph..."
+          }
+        ],
+        "publicResponse": true
+      }
+    ]
+  }
+]
