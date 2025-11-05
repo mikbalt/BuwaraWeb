@@ -4,6 +4,7 @@
     "title": "Alun-alun Karebosi, Kota Makassar",
     "subtitle": "Suatu Hari di Kota Anging Mammiri",
     "artist": "Heru Barlan Jodi",
+    "articleAuthor": "Nakula Sadewa",
     "location": "Makassar, Sulawesi Selatan",
     "date": "2024",
     "image1": "/images/artworks/image1.png",
@@ -12,15 +13,16 @@
     "mapCaption": "Alun-alun Karebosi terletak di jantung kota Makassar",
     "paragraphs": [
       "Alun-alun Karebosi adalah jantung kehidupan urban di Makassar. Setiap sore, ruang terbuka ini menjadi tempat berkumpul warga dari berbagai lapisan masyarakat. Anak-anak berlarian, pedagang kaki lima membentangkan dagangan, dan orang-orang tua duduk berbincang sambil menikmati angin sore yang sejuk.",
-      "Di tengah hiruk pikuk perkembangan kota modern, Karebosi tetap mempertahankan identitasnya sebagai ruang publik demokratis. Tidak ada sekat yang membedakan kelas sosial di sini - semua orang bebas datang dan menikmati ruang ini dengan cara mereka masing-masing. Ini adalah cerminan dari filosofi 'Sipakatau, Sipakalebbi' - saling menghargai dan memanusiakan sesama.",
-      "Karya ini menangkap momen-momen keseharian yang terjadi di Karebosi. Melalui komposisi visual yang menyerupai peta topografi, saya mencoba menggambarkan lapisan-lapisan interaksi sosial yang terjadi di ruang ini. Seperti kontur yang membentuk lanskap, berbagai aktivitas dan individu membentuk karakter unik dari alun-alun ini."
-    ]
+      "Di tengah hiruk pikuk perkembangan kota modern, Karebosi tetap mempertahankan identitasnya sebagai ruang publik demokratis. Tidak ada sekat yang membedakan kelas sosial di sini - semua orang bebas datang dan menikmati ruang ini dengan cara mereka masing-masing. Ini adalah cerminan dari filosofi 'Sipakatau, Sipakalebbi' - saling menghargai dan memanusiakan sesama."
+    ],
+    "closingQuestion": "Bagaimana ruang publik seperti Karebosi dapat terus bertahan sebagai tempat demokratis di tengah modernisasi kota?"
   },
   {
     "id": "bandung-001",
     "title": "Jalan Braga, Kota Bandung",
     "subtitle": "Memori dalam Arsitektur",
     "artist": "Heru Barlan Jodi",
+    "articleAuthor": "Nakula Sadewa",
     "location": "Bandung, Jawa Barat",
     "date": "2024",
     "image1": "/images/artworks/image1.png",
@@ -29,15 +31,16 @@
     "mapCaption": "Jalan Braga merupakan koridor bersejarah di pusat kota Bandung",
     "paragraphs": [
       "Jalan Braga adalah saksi bisu perjalanan waktu Bandung. Dari era kolonial hingga modern, jalan ini menyimpan lapisan-lapisan sejarah dalam setiap sudut bangunannya. Kafe-kafe tua berdampingan dengan toko modern, menciptakan dialog unik antara masa lalu dan masa kini.",
-      "Arsitektur art deco yang masih bertahan di sepanjang jalan ini menjadi pengingat akan kejayaan Bandung sebagai Paris van Java. Setiap fasad bangunan menyimpan cerita - tentang pertemuan, percakapan, dan mimpi-mimpi yang pernah terjadi di sini. Ini adalah ruang di mana waktu bergerak lambat, memberi kesempatan untuk merenung.",
-      "Melalui karya ini, saya berusaha menangkap esensi Braga sebagai ruang nostalgia kolektif. Visualisasi topografis menggambarkan bagaimana memori menumpuk seperti lapisan sedimen, membentuk identitas tempat yang kaya dan kompleks."
-    ]
+      "Arsitektur art deco yang masih bertahan di sepanjang jalan ini menjadi pengingat akan kejayaan Bandung sebagai Paris van Java. Setiap fasad bangunan menyimpan cerita - tentang pertemuan, percakapan, dan mimpi-mimpi yang pernah terjadi di sini. Ini adalah ruang di mana waktu bergerak lambat, memberi kesempatan untuk merenung."
+    ],
+    "closingQuestion": "Apakah nostalgia arsitektur kolonial dapat hidup berdampingan dengan identitas kota yang terus berkembang?"
   },
   {
     "id": "yogyakarta-001",
     "title": "Alun-alun Kidul, Yogyakarta",
     "subtitle": "Antara Sakral dan Profan",
     "artist": "Heru Barlan Jodi",
+    "articleAuthor": "Nakula Sadewa",
     "location": "Yogyakarta, DI Yogyakarta",
     "date": "2024",
     "image1": "/images/artworks/image1.png",
@@ -46,8 +49,8 @@
     "mapCaption": "Alun-alun Kidul terletak di sisi selatan Keraton Yogyakarta",
     "paragraphs": [
       "Alun-alun Kidul adalah ruang yang hidup dalam dualitas. Di siang hari, tempat ini ramai dengan aktivitas sehari-hari - anak-anak bermain, pedagang berjualan, wisatawan berfoto. Namun saat malam tiba, suasana berubah menjadi mistis, dihiasi oleh ritual masangin - mencoba melewati dua pohon beringin dengan mata tertutup.",
-      "Keberadaan Keraton Yogyakarta sebagai tetangga memberi dimensi sakral pada ruang ini. Alun-alun bukan sekadar taman kota, melainkan bagian dari kosmologi Jawa yang menempatkan raja sebagai poros dunia. Namun fungsi publiknya tetap kuat - semua orang, tanpa memandang status, dapat menikmati ruang ini.",
-      "Karya ini mengeksplorasi ketegangan produktif antara sakral dan profan, tradisi dan modernitas. Seperti peta topografi yang menunjukkan elevasi berbeda, Alun-alun Kidul adalah ruang berlapis di mana berbagai dimensi kehidupan bertemu dan berinteraksi."
-    ]
+      "Keberadaan Keraton Yogyakarta sebagai tetangga memberi dimensi sakral pada ruang ini. Alun-alun bukan sekadar taman kota, melainkan bagian dari kosmologi Jawa yang menempatkan raja sebagai poros dunia. Namun fungsi publiknya tetap kuat - semua orang, tanpa memandang status, dapat menikmati ruang ini."
+    ],
+    "closingQuestion": "Dapatkah ruang publik modern mempertahankan dimensi spiritualnya tanpa kehilangan sifat inklusifnya?"
   }
 ]

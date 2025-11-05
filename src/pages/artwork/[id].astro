@@ -1,7 +1,6 @@
 ---
 import MainLayout from '../../layouts/MainLayout.astro';
 import Header from '../../components/Header.astro';
-import PhotoMap from '../../components/PhotoMap.astro';
 import artworksData from '../../data/artworks.json';
 
 export function getStaticPaths() {
@@ -12,20 +11,30 @@ export function getStaticPaths() {
 }
 
 const { artwork } = Astro.props;
+
+// Get related artworks (exclude current one)
+const relatedArtworks = artworksData.filter(a => a.id !== artwork.id).slice(0, 2);
 ---
 
 <MainLayout title={`${artwork.title} - Buwara`} showSplash={true}>
   <Header artworkNumber={artwork.id} />
   <article class="artwork-page">
-    <!-- Header Section -->
+    <!-- Image 1 -->
+    <section class="hero-image-section">
+      <div class="container-narrow">
+        <div class="hero-image-container">
+          <img
+            src={artwork.image1}
+            alt={artwork.title}
+            class="hero-image"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Title & Subtitle -->
     <header class="artwork-header">
       <div class="container-narrow">
-        <div class="header-meta">
-          <span class="location-tag">{artwork.location}</span>
-          <span class="divider">•</span>
-          <span class="date-tag">{artwork.date}</span>
-        </div>
-
         <h1 class="artwork-title">
           {artwork.title}
         </h1>
@@ -35,58 +44,88 @@ const { artwork } = Astro.props;
             {artwork.subtitle}
           </p>
         )}
-
-        <div class="artist-credit">
-          <span class="artist-name">{artwork.artist}</span>
-        </div>
       </div>
     </header>
 
-    <!-- Main Artwork Images -->
-    <section class="artwork-image-section">
+    <!-- Paragraph 1 -->
+    <section class="article-section">
       <div class="container-narrow">
-        <div class="artwork-images-grid">
-          <div class="artwork-image-container">
-            <img
-              src={artwork.image1}
-              alt={`${artwork.title} - Image 1`}
-              class="artwork-image"
-            />
-          </div>
-          <div class="artwork-image-container">
-            <img
-              src={artwork.image2}
-              alt={`${artwork.title} - Image 2`}
-              class="artwork-image"
-            />
-          </div>
+        <p class="article-paragraph">
+          {artwork.paragraphs[0]}
+        </p>
+      </div>
+    </section>
+
+    <!-- Image 2 -->
+    <section class="content-image-section">
+      <div class="container-narrow">
+        <div class="content-image-container">
+          <img
+            src={artwork.image2}
+            alt={`${artwork.title} - Image 2`}
+            class="content-image"
+          />
         </div>
       </div>
     </section>
 
-    <!-- Article Content -->
-    <section class="article-content">
+    <!-- Paragraph 2 -->
+    <section class="article-section">
       <div class="container-narrow">
-        <div class="paragraphs">
-          {artwork.paragraphs.map((paragraph, index) => (
-            <p class="article-paragraph" key={index}>
-              {paragraph}
-            </p>
-          ))}
+        <p class="article-paragraph">
+          {artwork.paragraphs[1]}
+        </p>
+      </div>
+    </section>
+
+    <!-- Closing Question -->
+    <section class="closing-section">
+      <div class="container-narrow">
+        <h3 class="closing-question">
+          {artwork.closingQuestion}
+        </h3>
+      </div>
+    </section>
+
+    <!-- Credits -->
+    <section class="credits-section">
+      <div class="container-narrow">
+        <div class="credits">
+          <p class="credit-item">Artwork by <strong>{artwork.artist}</strong></p>
+          <p class="credit-item">Article by <strong>{artwork.articleAuthor}</strong></p>
+          <p class="credit-meta">{artwork.location} • {artwork.date}</p>
         </div>
       </div>
     </section>
 
-    <!-- Photo Map Section -->
-    <section class="map-section">
-      <div class="container-narrow">
-        <PhotoMap
-          mapImage={artwork.mapImage}
-          caption={artwork.mapCaption}
-          location={artwork.location}
-        />
-      </div>
-    </section>
+    <!-- Related Articles -->
+    {relatedArtworks.length > 0 && (
+      <section class="related-section">
+        <div class="container-narrow">
+          <h2 class="related-title">Read More</h2>
+          <div class="related-grid">
+            {relatedArtworks.map((related) => (
+              <a href={`/artwork/${related.id}`} class="related-card">
+                <div class="related-image-wrapper">
+                  <img
+                    src={related.image1}
+                    alt={related.title}
+                    class="related-image"
+                  />
+                </div>
+                <div class="related-content">
+                  <p class="related-location">{related.location}</p>
+                  <h3 class="related-card-title">{related.title}</h3>
+                  {related.subtitle && (
+                    <p class="related-subtitle">{related.subtitle}</p>
+                  )}
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
 
     <!-- Footer -->
     <footer class="artwork-footer">
@@ -123,99 +162,179 @@ const { artwork } = Astro.props;
     min-height: 100vh;
   }
 
-  .artwork-header {
-    padding: 2rem 0 3rem;
-  }
-
-  .header-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-    font-size: 0.875rem;
-    color: var(--color-slate);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-
-  .divider {
-    color: var(--color-warm);
-  }
-
-  .artwork-title {
-    font-size: 2.5rem;
-    font-weight: 400;
-    line-height: 1.2;
-    color: var(--color-primary);
-    margin-bottom: 1rem;
-    letter-spacing: -0.02em;
-  }
-
-  .artwork-subtitle {
-    font-size: 1.25rem;
-    font-style: italic;
-    color: var(--color-secondary);
+  /* Hero Image */
+  .hero-image-section {
     margin-bottom: 2rem;
-    font-weight: 300;
   }
 
-  .artist-credit {
-    padding-top: 1rem;
-    border-top: 1px solid var(--color-warm);
-  }
-
-  .artist-name {
-    font-size: 0.9375rem;
-    color: var(--color-text);
-    font-weight: 500;
-  }
-
-  .artwork-image-section {
-    margin: 3rem 0;
-  }
-
-  .artwork-images-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .artwork-image-container {
-    position: relative;
+  .hero-image-container {
     width: 100%;
     overflow: hidden;
-    border-radius: 2px;
-    box-shadow: 0 4px 16px rgba(61, 79, 83, 0.12);
   }
 
-  .artwork-image {
+  .hero-image {
     width: 100%;
     height: auto;
     display: block;
   }
 
-  .article-content {
+  /* Header (Title & Subtitle) */
+  .artwork-header {
     padding: 2rem 0;
   }
 
-  .paragraphs {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  .artwork-title {
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--color-primary);
+    margin-bottom: 0.75rem;
+  }
+
+  .artwork-subtitle {
+    font-size: 1.125rem;
+    font-style: italic;
+    color: var(--color-secondary);
+    font-weight: 400;
+  }
+
+  /* Article Sections */
+  .article-section {
+    padding: 1.5rem 0;
   }
 
   .article-paragraph {
-    font-size: 1.0625rem;
+    font-size: 1rem;
     line-height: 1.75;
     color: var(--color-text);
     text-align: justify;
-    hyphens: auto;
   }
 
-  .map-section {
-    padding: 2rem 0 4rem;
+  /* Content Image */
+  .content-image-section {
+    margin: 2rem 0;
   }
 
+  .content-image-container {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .content-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Closing Question */
+  .closing-section {
+    padding: 3rem 0 2rem;
+  }
+
+  .closing-question {
+    font-size: 1.25rem;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--color-primary);
+    text-align: center;
+  }
+
+  /* Credits */
+  .credits-section {
+    padding: 2rem 0;
+    border-top: 1px solid var(--color-warm);
+    border-bottom: 1px solid var(--color-warm);
+  }
+
+  .credits {
+    text-align: center;
+  }
+
+  .credit-item {
+    font-size: 0.875rem;
+    color: var(--color-text);
+    margin-bottom: 0.25rem;
+  }
+
+  .credit-item strong {
+    font-weight: 600;
+  }
+
+  .credit-meta {
+    font-size: 0.75rem;
+    color: var(--color-slate);
+    margin-top: 0.5rem;
+  }
+
+  /* Related Articles */
+  .related-section {
+    padding: 3rem 0;
+  }
+
+  .related-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 2rem;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .related-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease;
+  }
+
+  .related-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .related-image-wrapper {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+
+  .related-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .related-content {
+    padding: 0.5rem 0;
+  }
+
+  .related-location {
+    font-size: 0.75rem;
+    color: var(--color-slate);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .related-card-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .related-subtitle {
+    font-size: 0.875rem;
+    font-style: italic;
+    color: var(--color-secondary);
+  }
+
+  /* Footer */
   .artwork-footer {
     padding: 3rem 0 2rem;
     border-top: 1px solid var(--color-warm);
@@ -264,29 +383,26 @@ const { artwork } = Astro.props;
     height: 24px;
   }
 
+  /* Responsive */
   @media (min-width: 768px) {
+    .hero-image-section {
+      margin-bottom: 3rem;
+    }
+
     .artwork-header {
-      padding: 3rem 0 4rem;
+      padding: 3rem 0 2rem;
     }
 
     .artwork-title {
-      font-size: 3.5rem;
+      font-size: 3rem;
     }
 
     .artwork-subtitle {
       font-size: 1.5rem;
     }
 
-    .artwork-image-section {
-      margin: 4rem 0;
-    }
-
-    .artwork-images-grid {
-      gap: 2.5rem;
-    }
-
-    .article-content {
-      padding: 3rem 0;
+    .article-section {
+      padding: 2rem 0;
     }
 
     .article-paragraph {
@@ -294,8 +410,33 @@ const { artwork } = Astro.props;
       line-height: 1.8;
     }
 
-    .map-section {
-      padding: 3rem 0 5rem;
+    .content-image-section {
+      margin: 3rem 0;
+    }
+
+    .closing-section {
+      padding: 4rem 0 3rem;
+    }
+
+    .closing-question {
+      font-size: 1.75rem;
+    }
+
+    .credits-section {
+      padding: 3rem 0;
+    }
+
+    .related-section {
+      padding: 4rem 0;
+    }
+
+    .related-title {
+      font-size: 2rem;
+    }
+
+    .related-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
     }
 
     .artwork-footer {
