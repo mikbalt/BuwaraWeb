@@ -1,42 +1,99 @@
 ---
+// Header component with centered logo
 interface Props {
-  location?: string;
-  articleNumber?: string;
+  artworkNumber?: string;
 }
 
-const { location, articleNumber } = Astro.props;
+const { artworkNumber } = Astro.props;
 ---
 
-<header class="fixed top-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-sm">
-  <div class="flex items-center justify-between px-4 py-3 max-w-screen-xl mx-auto">
-    <!-- Logo/Brand -->
-    <a href="/" class="flex items-center gap-2">
-      <div class="w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center">
-        <span class="text-white text-sm font-bold">B</span>
-      </div>
-      <span class="text-sm font-semibold">BUWARA</span>
+<header class="site-header">
+  <div class="header-container">
+    <a href="/" class="brand-text">Buwara</a>
+    <a href="/" class="logo-link">
+      <img
+        src="/images/logo/buwara logo black.png"
+        alt="Buwara Logo"
+        class="logo-image"
+      />
     </a>
-
-    <!-- Right side info -->
-    <div class="flex items-center gap-3 text-sm">
-      {location && (
-        <div class="flex items-center gap-1 text-gray-600">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-          <span>{location}</span>
-        </div>
-      )}
-
-      {articleNumber && (
-        <div class="px-3 py-1 bg-gray-900 text-white text-xs font-medium rounded-full">
-          #{articleNumber}
-        </div>
-      )}
-    </div>
+    {artworkNumber && <span class="artwork-number">{artworkNumber}</span>}
   </div>
 </header>
 
 <!-- Spacer to prevent content from going under fixed header -->
-<div class="h-14"></div>
+<div class="header-spacer"></div>
+
+<style>
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--color-warm);
+  }
+
+  .header-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .brand-text {
+    font-family: 'Forta', sans-serif;
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+    z-index: 1;
+  }
+
+  .brand-text:hover {
+    opacity: 0.8;
+  }
+
+  .logo-link {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    transition: opacity 0.2s ease;
+  }
+
+  .artwork-number {
+    font-family: 'Forta', sans-serif;
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    z-index: 1;
+  }
+
+  .logo-link:hover {
+    opacity: 0.8;
+  }
+
+  .logo-image {
+    height: 2rem;
+    width: auto;
+    display: block;
+  }
+
+  .header-spacer {
+    height: 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .logo-image {
+      height: 2.5rem;
+    }
+
+    .header-spacer {
+      height: 4.5rem;
+    }
+  }
+</style>

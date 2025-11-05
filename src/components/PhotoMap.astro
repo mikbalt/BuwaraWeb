@@ -1,0 +1,65 @@
+---
+interface Props {
+  mapImage: string;
+  caption?: string;
+  location: string;
+}
+
+const { mapImage, caption, location } = Astro.props;
+---
+
+<div class="photo-map">
+  <div class="map-container">
+    <img
+      src={mapImage}
+      alt={`Map of ${location}`}
+      class="map-image"
+      loading="lazy"
+    />
+  </div>
+  {caption && (
+    <p class="map-caption">
+      {caption}
+    </p>
+  )}
+</div>
+
+<style>
+  .photo-map {
+    margin: 3rem 0;
+  }
+
+  .map-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(61, 79, 83, 0.1);
+  }
+
+  .map-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .map-caption {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    font-style: italic;
+    color: var(--color-slate);
+    text-align: center;
+    letter-spacing: 0.01em;
+  }
+
+  @media (min-width: 768px) {
+    .photo-map {
+      margin: 4rem 0;
+    }
+
+    .map-caption {
+      font-size: 0.9375rem;
+    }
+  }
+</style>

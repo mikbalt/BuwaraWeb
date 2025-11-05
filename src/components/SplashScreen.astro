@@ -2,21 +2,72 @@
 // Splash screen with auto-redirect after 2 seconds
 ---
 
-<div id="splash" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-white">
-  <div class="flex flex-col items-center gap-6 animate-fade-in">
-    <!-- Logo placeholder - replace with actual logo -->
-    <div class="w-24 h-24 rounded-full bg-gray-900 flex items-center justify-center">
-      <span class="text-white text-3xl font-bold">B</span>
+<div id="splash" class="splash-screen">
+  <div class="splash-content">
+    <!-- Logo -->
+    <div class="logo-container">
+      <img
+        src="/images/logo/buwara logo black.png"
+        alt="Buwara"
+        class="splash-logo"
+      />
     </div>
 
-    <!-- Brand name -->
-    <h1 class="text-4xl font-bold tracking-wider text-gray-900">
-      BUWARA
-    </h1>
+    <!-- Tagline -->
+    <p class="tagline">Buwara</p>
+    <p class="subtitle">we are all wanderers</p>
   </div>
 </div>
 
 <style>
+  .splash-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-background);
+  }
+
+  .splash-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    animation: fade-in 0.8s ease-out;
+  }
+
+  .logo-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .splash-logo {
+    height: 4rem;
+    width: auto;
+    filter: drop-shadow(0 4px 16px rgba(61, 79, 83, 0.1));
+  }
+
+  .tagline {
+    font-family: 'Forta', sans-serif;
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+    margin-top: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.875rem;
+    font-style: italic;
+    color: var(--color-slate);
+    letter-spacing: 0.1em;
+    margin-top: 0.25rem;
+  }
+
   @keyframes fade-in {
     from {
       opacity: 0;
@@ -26,10 +77,6 @@
       opacity: 1;
       transform: translateY(0);
     }
-  }
-
-  .animate-fade-in {
-    animation: fade-in 0.6s ease-out;
   }
 
   @keyframes fade-out {
