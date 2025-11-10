@@ -1,0 +1,249 @@
+---
+// Intro Header component with language toggle
+---
+
+<header class="intro-header">
+  <div class="intro-header-container">
+    <a href="/" class="brand-text">Buwara</a>
+    <a href="/" class="logo-link">
+      <img
+        src="/images/logo/buwara logo black.png"
+        alt="Buwara Logo"
+        class="logo-image logo-black"
+      />
+      <img
+        src="/images/logo/buwara logo white.png"
+        alt="Buwara Logo"
+        class="logo-image logo-white"
+      />
+    </a>
+    <div class="language-toggle">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <span class="lang-divider">|</span>
+      <button class="lang-btn" data-lang="id">ID</button>
+    </div>
+  </div>
+</header>
+
+<!-- Spacer to prevent content from going under fixed header -->
+<div class="header-spacer"></div>
+
+<style>
+  .intro-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    background-color: #e8e4dc;
+    transition: all 0.3s ease;
+  }
+
+  /* Dark section - black background */
+  .intro-header.dark-section {
+    background-color: #000000;
+  }
+
+  .intro-header-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .brand-text {
+    font-family: 'Forta', sans-serif;
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    z-index: 1;
+  }
+
+  .brand-text:hover {
+    opacity: 0.8;
+  }
+
+  /* Dark section styles */
+  .intro-header.dark-section .brand-text {
+    color: #ffffff;
+  }
+
+  .logo-link {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    transition: opacity 0.2s ease;
+  }
+
+  .logo-link:hover {
+    opacity: 0.8;
+  }
+
+  .logo-image {
+    height: 2rem;
+    width: auto;
+    display: block;
+    transition: opacity 0.3s ease;
+  }
+
+  .logo-black {
+    opacity: 1;
+  }
+
+  .logo-white {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+
+  /* Show white logo on dark section */
+  .intro-header.dark-section .logo-black {
+    opacity: 0;
+  }
+
+  .intro-header.dark-section .logo-white {
+    opacity: 1;
+  }
+
+  .language-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 1;
+  }
+
+  .lang-btn {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-slate);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .lang-btn:hover {
+    color: var(--color-primary);
+  }
+
+  .lang-btn.active {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .lang-divider {
+    color: var(--color-warm);
+    font-size: 0.875rem;
+    transition: color 0.3s ease;
+  }
+
+  /* Dark section language toggle */
+  .intro-header.dark-section .lang-btn {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .intro-header.dark-section .lang-btn:hover,
+  .intro-header.dark-section .lang-btn.active {
+    color: #ffffff;
+  }
+
+  .intro-header.dark-section .lang-divider {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .header-spacer {
+    height: 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .logo-image {
+      height: 2.5rem;
+    }
+
+    .header-spacer {
+      height: 4.5rem;
+    }
+
+    .lang-btn {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<script>
+  // Detect which section is visible and change header colors using Intersection Observer
+  const header = document.querySelector('.intro-header');
+  const sections = document.querySelectorAll('.intro-section');
+
+  if (header && sections.length > 0) {
+    // Create an intersection observer
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const section = entry.target;
+
+          // Check if this is section-2 (the black section)
+          if (section.classList.contains('section-2')) {
+            header.classList.add('dark-section');
+          } else {
+            header.classList.remove('dark-section');
+          }
+        }
+      });
+    }, observerOptions);
+
+    // Observe all sections
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  }
+
+  // Language toggle functionality
+  const langButtons = document.querySelectorAll('.lang-btn');
+
+  langButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Remove active class from all buttons
+      langButtons.forEach(btn => btn.classList.remove('active'));
+
+      // Add active class to clicked button
+      button.classList.add('active');
+
+      // Store language preference
+      const lang = button.getAttribute('data-lang');
+      if (lang) {
+        localStorage.setItem('preferredLanguage', lang);
+      }
+
+      // Here you can add logic to change the content language
+      // For now, it just toggles the active state
+    });
+  });
+
+  // Restore language preference on load
+  if (typeof window !== 'undefined') {
+    const savedLang = localStorage.getItem('preferredLanguage');
+    if (savedLang) {
+      langButtons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-lang') === savedLang) {
+          btn.classList.add('active');
+        }
+      });
+    }
+  }
+</script>
