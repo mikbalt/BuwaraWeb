@@ -479,3 +479,15 @@ import artworksData from '../data/artworks.json';
     }
   }
 </style>
+
+<script>
+  // Redirect first-time visitors to intro page
+  if (typeof window !== 'undefined') {
+    const hasVisitedIntro = localStorage.getItem('hasVisitedIntro');
+
+    // If user hasn't visited intro page yet, redirect to /intro
+    if (!hasVisitedIntro) {
+      window.location.href = '/intro';
+    }
+  }
+</script>

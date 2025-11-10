@@ -1,0 +1,215 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import IntroHeader from '../components/IntroHeader.astro';
+---
+
+<MainLayout title="Buwara - Welcome" showSplash={true}>
+  <IntroHeader />
+
+  <div class="intro-container">
+    <!-- Section 1: Intro-1 Image (Beige) -->
+    <section class="intro-section section-1">
+      <img src="/images/illustrations/Intro-1.png" alt="Introduction 1" class="intro-image" />
+    </section>
+
+    <!-- Section 2: Text with Image Background (Black) -->
+    <section class="intro-section section-2">
+      <img src="/images/illustrations/Intro-2.png" alt="Introduction 2" class="intro-background" />
+
+      <p class="intro-text-left">
+        Imagine if we were born and raised without a cultural background. A blank sheet of paper that ready to be written or drawn on.
+      </p>
+
+      <p class="intro-text-right">
+        Naturally, we'd want to explore how culture connects to what we truly need. We'd dive deep into <u>past</u> cultures and imagining the exciting <u>future</u> culture. Without coercion and boring repetition.
+      </p>
+    </section>
+
+    <!-- Section 3: Intro-3 Image (Beige) -->
+    <section class="intro-section section-3">
+      <img src="/images/illustrations/Intro-3.png" alt="Introduction 3" class="intro-image" />
+    </section>
+
+    <!-- Section 4: Transition to Home (Beige) -->
+    <section class="intro-section section-4">
+      <div class="transition-content">
+        <h2 class="transition-title">Ready to explore?</h2>
+        <p class="transition-subtitle">Scroll to continue</p>
+      </div>
+    </section>
+  </div>
+</MainLayout>
+
+<style>
+  .intro-container {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh;
+    scroll-behavior: smooth;
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  .intro-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Section 1: Beige Background */
+  .section-1 {
+    background-color: #e8e4dc;
+    padding-top: 4rem;
+  }
+
+  /* Section 2: Black Background */
+  .section-2 {
+    background-color: #000000;
+  }
+
+  /* Section 3: Beige Background */
+  .section-3 {
+    background-color: #e8e4dc;
+  }
+
+  /* Section 4: Beige Background */
+  .section-4 {
+    background-color: #e8e4dc;
+  }
+
+  .transition-content {
+    text-align: center;
+  }
+
+  .transition-title {
+    font-family: 'Crimson Text', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+  }
+
+  .transition-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    color: var(--color-slate);
+    font-style: italic;
+  }
+
+  .intro-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  /* Section 2 specific styles */
+  .intro-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0.3;
+    z-index: 1;
+  }
+
+  .intro-text-left {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 2rem;
+    max-width: 35%;
+    color: #ffffff;
+    font-family: 'Crimson Text', serif;
+    font-size: 2rem;
+    line-height: 1.6;
+    text-align: justify;
+    z-index: 2;
+  }
+
+  .intro-text-right {
+    position: absolute;
+    bottom: 4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 40%;
+    color: #ffffff;
+    font-family: 'Crimson Text', serif;
+    font-size: 2rem;
+    line-height: 1.6;
+    text-align: justify;
+    z-index: 2;
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 768px) {
+    .intro-text-left {
+      top: 30%;
+      transform: translateY(-30%);
+      left: 1.5rem;
+      right: auto;
+      max-width: 70%;
+      font-size: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .intro-text-right {
+      bottom: 2rem;
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      max-width: 70%;
+      font-size: 1.5rem;
+      line-height: 1.5;
+    }
+  }
+
+  /* Tablet and up */
+  @media (min-width: 769px) {
+    .intro-text-left,
+    .intro-text-right {
+      font-size: 2.25rem;
+      line-height: 1.6;
+    }
+  }
+</style>
+
+<script>
+  // Track scroll position and redirect to homepage when scrolling down from section 4
+  const introContainer = document.querySelector('.intro-container');
+  const sections = document.querySelectorAll('.intro-section');
+
+  if (introContainer && sections.length > 0) {
+    let lastScrollTop = 0;
+
+    introContainer.addEventListener('scroll', () => {
+      const scrollPosition = introContainer.scrollTop;
+      const sectionHeight = window.innerHeight;
+      const currentSection = Math.round(scrollPosition / sectionHeight);
+      const maxScroll = introContainer.scrollHeight - window.innerHeight;
+
+      // If we're at section 4 (index 3) and trying to scroll down further
+      if (currentSection >= sections.length - 1) {
+        // If scroll position is near the bottom or trying to scroll past
+        if (scrollPosition > lastScrollTop && scrollPosition >= maxScroll - 10) {
+          // User is scrolling down from last section, redirect to home
+          window.location.href = '/';
+        }
+      }
+
+      lastScrollTop = scrollPosition;
+    });
+  }
+
+  // Mark that user has visited intro page (for first-time visitor tracking)
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('hasVisitedIntro', 'true');
+  }
+</script>
