@@ -12,30 +12,17 @@ import IntroHeader from '../components/IntroHeader.astro';
       <img src="/images/illustrations/Intro-1.png" alt="Introduction 1" class="intro-image" />
     </section>
 
-    <!-- Section 2: Text Overlay with Intro-2 Background (Black) -->
+    <!-- Section 2: Text with Image Background (Black) -->
     <section class="intro-section section-2">
       <img src="/images/illustrations/Intro-2.png" alt="Introduction 2" class="intro-background" />
-      <div class="text-overlay">
-        <p class="intro-text">
-          Imagine if we were born<br/>
-          and raised<br/>
-          without a cultural background.
-        </p>
-        <p class="intro-text">
-          A blank sheet of paper that ready to be written
-        </p>
-        <p class="intro-text">
-          Naturally, we'd want to explore how culture<br/>
-          connects to what we truly need.
-        </p>
-        <p class="intro-text">
-          We'd dive deep into past cultures and imagining the<br/>
-          exciting future culture.
-        </p>
-        <p class="intro-text">
-          Without coercion and boring repetition.
-        </p>
-      </div>
+
+      <p class="intro-text-left">
+        Imagine if we were born and raised without a cultural background. A blank sheet of paper that ready to be written or drawn on.
+      </p>
+
+      <p class="intro-text-right">
+        Naturally, we'd want to explore how culture connects to what we truly need. We'd dive deep into <u>past</u> cultures and imagining the exciting <u>future</u> culture. Without coercion and boring repetition.
+      </p>
     </section>
 
     <!-- Section 3: Intro-3 Image (Beige) -->
@@ -59,6 +46,8 @@ import IntroHeader from '../components/IntroHeader.astro';
     overflow-y: scroll;
     height: 100vh;
     scroll-behavior: smooth;
+    padding-top: 0;
+    margin-top: 0;
   }
 
   .intro-section {
@@ -76,6 +65,7 @@ import IntroHeader from '../components/IntroHeader.astro';
   /* Section 1: Beige Background */
   .section-1 {
     background-color: #e8e4dc;
+    padding-top: 4rem;
   }
 
   /* Section 2: Black Background */
@@ -130,45 +120,63 @@ import IntroHeader from '../components/IntroHeader.astro';
     z-index: 1;
   }
 
-  .text-overlay {
-    position: relative;
-    z-index: 2;
+  .intro-text-left {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 2rem;
+    max-width: 35%;
     color: #ffffff;
-    text-align: center;
-    padding: 2rem;
-    max-width: 900px;
-  }
-
-  .intro-text {
     font-family: 'Crimson Text', serif;
-    font-size: 1.5rem;
+    font-size: 2rem;
     line-height: 1.6;
-    margin-bottom: 1.5rem;
-    font-weight: 400;
+    text-align: justify;
+    z-index: 2;
   }
 
-  .intro-text:last-child {
-    margin-bottom: 0;
+  .intro-text-right {
+    position: absolute;
+    bottom: 4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 40%;
+    color: #ffffff;
+    font-family: 'Crimson Text', serif;
+    font-size: 2rem;
+    line-height: 1.6;
+    text-align: justify;
+    z-index: 2;
   }
 
   /* Mobile adjustments */
   @media (max-width: 768px) {
-    .intro-text {
-      font-size: 1.125rem;
+    .intro-text-left {
+      top: 30%;
+      transform: translateY(-30%);
+      left: 1.5rem;
+      right: auto;
+      max-width: 70%;
+      font-size: 1.5rem;
       line-height: 1.5;
-      margin-bottom: 1rem;
     }
 
-    .text-overlay {
-      padding: 1.5rem;
+    .intro-text-right {
+      bottom: 2rem;
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      max-width: 70%;
+      font-size: 1.5rem;
+      line-height: 1.5;
     }
   }
 
   /* Tablet and up */
   @media (min-width: 769px) {
-    .intro-text {
-      font-size: 1.75rem;
-      line-height: 1.7;
+    .intro-text-left,
+    .intro-text-right {
+      font-size: 2.25rem;
+      line-height: 1.6;
     }
   }
 </style>
