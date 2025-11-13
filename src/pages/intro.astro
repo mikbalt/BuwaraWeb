@@ -10,6 +10,10 @@ import IntroHeader from '../components/IntroHeader.astro';
     <!-- Section 1: Intro-1 Image (Beige) -->
     <section class="intro-section section-1">
       <img src="/images/illustrations/Intro-1.png" alt="Introduction 1" class="intro-image" />
+      <div class="scroll-indicator">
+        <div class="scroll-arrow"></div>
+        <span class="scroll-text">Scroll to explore</span>
+      </div>
     </section>
 
     <!-- Section 2: Text with Image Background (Black) -->
@@ -34,7 +38,10 @@ import IntroHeader from '../components/IntroHeader.astro';
     <section class="intro-section section-4">
       <div class="transition-content">
         <h2 class="transition-title">Ready to explore?</h2>
-        <p class="transition-subtitle">Scroll to continue</p>
+        <p class="transition-subtitle">Scroll down to enter</p>
+        <div class="scroll-indicator scroll-indicator-final">
+          <div class="scroll-arrow"></div>
+        </div>
       </div>
     </section>
   </div>
@@ -44,16 +51,24 @@ import IntroHeader from '../components/IntroHeader.astro';
   .intro-container {
     scroll-snap-type: y mandatory;
     overflow-y: scroll;
+    overflow-x: hidden;
     height: 100vh;
     scroll-behavior: smooth;
     padding-top: 0;
     margin-top: 0;
+    transition: opacity 0.5s ease-out;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  }
+
+  .intro-container.fade-out {
+    opacity: 0;
   }
 
   .intro-section {
     scroll-snap-align: start;
     scroll-snap-stop: always;
     height: 100vh;
+    height: 100dvh; /* Use dynamic viewport height for mobile */
     width: 100%;
     display: flex;
     align-items: center;
@@ -66,6 +81,7 @@ import IntroHeader from '../components/IntroHeader.astro';
   .section-1 {
     background-color: #e8e4dc;
     padding-top: 4rem;
+    position: relative;
   }
 
   /* Section 2: Black Background */
@@ -100,6 +116,57 @@ import IntroHeader from '../components/IntroHeader.astro';
     font-size: 1rem;
     color: var(--color-slate);
     font-style: italic;
+    margin-bottom: 2rem;
+  }
+
+  /* Scroll Indicator */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: bounce 2s infinite;
+    z-index: 10;
+  }
+
+  .scroll-indicator-final {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-top: 1rem;
+  }
+
+  .scroll-arrow {
+    width: 24px;
+    height: 24px;
+    border-left: 2px solid var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
+    transform: rotate(-45deg);
+  }
+
+  .scroll-text {
+    font-family: 'Crimson Text', serif;
+    font-size: 0.875rem;
+    color: var(--color-slate);
+    text-transform: lowercase;
+    letter-spacing: 0.05em;
+  }
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateX(-50%) translateY(0);
+    }
+    40% {
+      transform: translateX(-50%) translateY(-10px);
+    }
+    60% {
+      transform: translateX(-50%) translateY(-5px);
+    }
   }
 
   .intro-image {
@@ -108,6 +175,12 @@ import IntroHeader from '../components/IntroHeader.astro';
     object-fit: contain;
     max-width: 100%;
     max-height: 100%;
+    padding: 1rem;
+  }
+
+  /* Remove padding for section 1 to avoid header overlap */
+  .section-1 .intro-image {
+    padding-top: 4rem;
   }
 
   /* Section 2 specific styles */
@@ -125,12 +198,13 @@ import IntroHeader from '../components/IntroHeader.astro';
     top: 50%;
     transform: translateY(-50%);
     left: 2rem;
-    max-width: 35%;
+    right: 2rem;
+    max-width: 600px;
     color: #ffffff;
     font-family: 'Crimson Text', serif;
-    font-size: 2rem;
+    font-size: 1.25rem;
     line-height: 1.6;
-    text-align: justify;
+    text-align: left;
     z-index: 2;
   }
 
@@ -139,57 +213,115 @@ import IntroHeader from '../components/IntroHeader.astro';
     bottom: 4rem;
     left: 50%;
     transform: translateX(-50%);
-    max-width: 40%;
+    right: 2rem;
+    max-width: 650px;
+    width: calc(100% - 4rem);
     color: #ffffff;
     font-family: 'Crimson Text', serif;
-    font-size: 2rem;
+    font-size: 1.25rem;
     line-height: 1.6;
-    text-align: justify;
+    text-align: left;
     z-index: 2;
   }
 
-  /* Mobile adjustments */
-  @media (max-width: 768px) {
+  /* Mobile (Phone) */
+  @media (max-width: 640px) {
+    .intro-container {
+      scroll-padding-top: 0;
+    }
+
     .intro-text-left {
-      top: 30%;
-      transform: translateY(-30%);
+      top: 20%;
+      transform: translateY(0);
       left: 1.5rem;
-      right: auto;
-      max-width: 70%;
-      font-size: 1.5rem;
+      right: 1.5rem;
+      max-width: none;
+      font-size: 1.125rem;
       line-height: 1.5;
     }
 
     .intro-text-right {
       bottom: 2rem;
-      left: 50%;
-      right: auto;
-      transform: translateX(-50%);
-      max-width: 70%;
-      font-size: 1.5rem;
+      left: 1.5rem;
+      right: 1.5rem;
+      transform: none;
+      max-width: none;
+      width: auto;
+      font-size: 1.125rem;
       line-height: 1.5;
+    }
+
+    .scroll-indicator {
+      bottom: 1.5rem;
+    }
+
+    .transition-title {
+      font-size: 1.75rem;
     }
   }
 
-  /* Tablet and up */
-  @media (min-width: 769px) {
-    .intro-text-left,
-    .intro-text-right {
-      font-size: 2.25rem;
+  /* Tablet */
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .intro-text-left {
+      font-size: 1.5rem;
       line-height: 1.6;
+      left: 3rem;
+      right: 3rem;
+    }
+
+    .intro-text-right {
+      font-size: 1.5rem;
+      line-height: 1.6;
+      bottom: 3rem;
+      width: calc(100% - 6rem);
+    }
+
+    .intro-background {
+      opacity: 0.4;
+    }
+  }
+
+  /* Desktop */
+  @media (min-width: 1025px) {
+    .intro-text-left {
+      font-size: 1.75rem;
+      line-height: 1.6;
+      max-width: 45%;
+    }
+
+    .intro-text-right {
+      font-size: 1.75rem;
+      line-height: 1.6;
+      max-width: 50%;
+    }
+  }
+
+  /* Large Desktop */
+  @media (min-width: 1440px) {
+    .intro-text-left {
+      font-size: 2rem;
+      line-height: 1.7;
+    }
+
+    .intro-text-right {
+      font-size: 2rem;
+      line-height: 1.7;
     }
   }
 </style>
 
 <script>
   // Track scroll position and redirect to homepage when scrolling down from section 4
-  const introContainer = document.querySelector('.intro-container');
+  const introContainer = document.querySelector('.intro-container') as HTMLElement;
   const sections = document.querySelectorAll('.intro-section');
+  let isRedirecting = false;
 
   if (introContainer && sections.length > 0) {
     let lastScrollTop = 0;
 
     introContainer.addEventListener('scroll', () => {
+      if (isRedirecting) return;
+
       const scrollPosition = introContainer.scrollTop;
       const sectionHeight = window.innerHeight;
       const currentSection = Math.round(scrollPosition / sectionHeight);
@@ -199,12 +331,32 @@ import IntroHeader from '../components/IntroHeader.astro';
       if (currentSection >= sections.length - 1) {
         // If scroll position is near the bottom or trying to scroll past
         if (scrollPosition > lastScrollTop && scrollPosition >= maxScroll - 10) {
-          // User is scrolling down from last section, redirect to home
-          window.location.href = '/';
+          // User is scrolling down from last section, start fade-out transition
+          isRedirecting = true;
+          introContainer.classList.add('fade-out');
+
+          // Redirect after fade-out animation completes
+          setTimeout(() => {
+            window.location.href = '/';
+          }, 500);
         }
       }
 
       lastScrollTop = scrollPosition;
+    });
+
+    // Hide scroll indicators after first scroll
+    const scrollIndicators = document.querySelectorAll('.scroll-indicator');
+    let hasScrolled = false;
+
+    introContainer.addEventListener('scroll', () => {
+      if (!hasScrolled && introContainer.scrollTop > 50) {
+        hasScrolled = true;
+        scrollIndicators.forEach(indicator => {
+          (indicator as HTMLElement).style.opacity = '0';
+          (indicator as HTMLElement).style.transition = 'opacity 0.3s ease-out';
+        });
+      }
     });
   }
 
