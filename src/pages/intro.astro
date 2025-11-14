@@ -21,7 +21,7 @@ import Header from '../components/Header.astro';
       <img src="/images/illustrations/Intro-2.png" alt="Introduction 2" class="intro-background" />
 
       <p class="intro-text-left">
-        Imagine if we were born and raised without a cultural background. A blank sheet of paper that ready to be written or drawn on.
+        Imagine if we were born and raised <u>without</u> a cultural background. A blank sheet of paper that ready to be written or drawn on.
       </p>
 
       <p class="intro-text-right">
@@ -29,9 +29,20 @@ import Header from '../components/Header.astro';
       </p>
     </section>
 
-    <!-- Section 3: Intro-3 Image (Beige) -->
+    <!-- Section 3: White Background with bg-3 -->
     <section class="intro-section section-3">
-      <img src="/images/illustrations/Intro-3.png" alt="Introduction 3" class="intro-image" />
+      <div class="section-3-bg"></div>
+      <div class="section-3-content">
+        <p class="section-3-text-1">In Sanskrit,</p>
+        <p class="section-3-text-1"><strong>"buwara"</strong> means <strong>"wandering"</strong>.</p>
+        <img src="/images/illustrations/Intro-3.png" alt="Introduction 3" class="intro-3-image" />
+        <div class="section-3-text-container">
+          <p class="section-3-text-2">
+            <strong>We're people who love to explore and bringing everyone closer to <span class="highlight-red">culture</span> through unboring everyday <span class="highlight-red">things</span></strong>.
+          </p>
+          <img src="/images/logo/buwara logo black.png" alt="Buwara" class="section-3-logo" />
+        </div>
+      </div>
     </section>
 
     <!-- Section 4: Transition to Home (Beige) -->
@@ -89,9 +100,135 @@ import Header from '../components/Header.astro';
     background-color: #000000;
   }
 
-  /* Section 3: Beige Background */
+  /* Section 3: White Background with full screen bg image */
   .section-3 {
-    background-color: #e8e4dc;
+    background-color: #ffffff;
+    position: relative;
+  }
+
+  .section-3-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('/images/illustrations/bg-3.png');
+    background-size: 200%;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+    z-index: 1;
+  }
+
+  .section-3-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    gap: 2rem;
+  }
+
+  .section-3-text-1 {
+    font-family: 'Montserrat', serif;
+    font-size: 3rem;
+    color: #3d4f53;
+    text-align: left;
+    max-width: 300px;
+  }
+
+  .intro-3-image {
+    max-width: 50%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .section-3-text-container {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .section-3-text-2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3rem;
+    line-height: 1.5;
+    color: #3d4f53;
+    text-align: left;
+    width: 100%;
+  }
+
+  .section-3-logo {
+    height: 3rem;
+    width: auto;
+    align-self: flex-start;
+  }
+
+  .highlight-red {
+    color: #8B3A3A;
+  }
+
+  /* Mobile adjustments for section 3 */
+  @media (max-width: 640px) {
+    .section-3-bg {
+      background-size: 200%;
+    }
+
+    .intro-3-image {
+      max-width: 70%;
+    }
+
+    .section-3-text-1 {
+      font-size: 0.875rem;
+    }
+
+    .section-3-text-container {
+      padding: 0 1rem;
+    }
+
+    .section-3-text-2 {
+      font-size: 1.75rem;
+      line-height: 1.4;
+    }
+
+    .section-3-content {
+      padding: 1.5rem;
+      gap: 1.5rem;
+    }
+
+    .section-3-logo {
+      height: 2.5rem;
+    }
+  }
+
+  /* Tablet adjustments for section 3 */
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .intro-3-image {
+      max-width: 60%;
+    }
+
+    .section-3-text-2 {
+      font-size: 2.5rem;
+    }
+
+    .section-3-text-container {
+      padding: 0 2rem;
+    }
+  }
+
+  /* Desktop adjustments for section 3 */
+  @media (min-width: 1025px) {
+    .section-3-text-2 {
+      font-size: 3rem;
+    }
+
+    .section-3-text-container {
+      padding: 0 3rem;
+    }
   }
 
   /* Section 4: Beige Background */

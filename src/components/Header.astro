@@ -53,6 +53,11 @@ const { artworkNumber } = Astro.props;
     background-color: #000000;
   }
 
+  /* Transparent section - for section 3 */
+  .site-header.transparent-section {
+    background-color: transparent;
+  }
+
   .header-container {
     position: relative;
     display: flex;
@@ -141,7 +146,7 @@ const { artworkNumber } = Astro.props;
   }
 
   .lang-btn {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Forta', sans-serif;
     font-size: 0.875rem;
     font-weight: 500;
     color: var(--color-slate);
@@ -215,11 +220,14 @@ const { artworkNumber } = Astro.props;
         if (entry.isIntersecting) {
           const section = entry.target;
 
-          // Check if this is section-2 (the black section)
+          // Reset all section classes
+          header.classList.remove('dark-section', 'transparent-section');
+
+          // Check which section is visible
           if (section.classList.contains('section-2')) {
             header.classList.add('dark-section');
-          } else {
-            header.classList.remove('dark-section');
+          } else if (section.classList.contains('section-3')) {
+            header.classList.add('transparent-section');
           }
         }
       });
