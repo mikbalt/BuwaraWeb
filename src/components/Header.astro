@@ -1,5 +1,5 @@
 ---
-// Header component with centered logo
+// Universal header component with dark section detection and language toggle
 interface Props {
   artworkNumber?: string;
 }
@@ -14,10 +14,23 @@ const { artworkNumber } = Astro.props;
       <img
         src="/images/logo/buwara logo black.png"
         alt="Buwara Logo"
-        class="logo-image"
+        class="logo-image logo-black"
+      />
+      <img
+        src="/images/logo/buwara logo white.png"
+        alt="Buwara Logo"
+        class="logo-image logo-white"
       />
     </a>
-    {artworkNumber && <span class="artwork-number">{artworkNumber}</span>}
+    {artworkNumber ? (
+      <span class="artwork-number">{artworkNumber}</span>
+    ) : (
+      <div class="language-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <span class="lang-divider">|</span>
+        <button class="lang-btn" data-lang="id">ID</button>
+      </div>
+    )}
   </div>
 </header>
 
@@ -31,8 +44,13 @@ const { artworkNumber } = Astro.props;
     left: 0;
     right: 0;
     z-index: 40;
-    background-color: #ffffff;
-    border-bottom: 1px solid var(--color-background);
+    background-color: #e8e4dc;
+    transition: all 0.3s ease;
+  }
+
+  /* Dark section - black background */
+  .site-header.dark-section {
+    background-color: #000000;
   }
 
   .header-container {
@@ -40,9 +58,8 @@ const { artworkNumber } = Astro.props;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    width: 100%;
   }
 
   .brand-text {
@@ -50,12 +67,18 @@ const { artworkNumber } = Astro.props;
     font-size: 1.25rem;
     color: var(--color-primary);
     text-decoration: none;
-    transition: opacity 0.2s ease;
-    z-index: 1;
+    transition: all 0.3s ease;
+    z-index: 10;
+    position: relative;
   }
 
   .brand-text:hover {
     opacity: 0.8;
+  }
+
+  /* Dark section styles */
+  .site-header.dark-section .brand-text {
+    color: #ffffff;
   }
 
   .logo-link {
@@ -64,13 +87,8 @@ const { artworkNumber } = Astro.props;
     transform: translateX(-50%);
     display: block;
     transition: opacity 0.2s ease;
-  }
-
-  .artwork-number {
-    font-family: 'Forta', sans-serif;
-    font-size: 1rem;
-    color: var(--color-text-secondary);
-    z-index: 1;
+    z-index: 5;
+    pointer-events: auto;
   }
 
   .logo-link:hover {
@@ -78,22 +96,170 @@ const { artworkNumber } = Astro.props;
   }
 
   .logo-image {
-    height: 2rem;
+    height: 2.5rem;
     width: auto;
     display: block;
+    transition: opacity 0.3s ease;
+  }
+
+  .logo-black {
+    opacity: 1;
+  }
+
+  .logo-white {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+
+  /* Show white logo on dark section */
+  .site-header.dark-section .logo-black {
+    opacity: 0;
+  }
+
+  .site-header.dark-section .logo-white {
+    opacity: 1;
+  }
+
+  /* Artwork number (for artwork detail pages) */
+  .artwork-number {
+    font-family: 'Forta', sans-serif;
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    z-index: 10;
+    position: relative;
+  }
+
+  /* Language toggle (for intro/home pages) */
+  .language-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.01rem;
+    z-index: 10;
+    position: relative;
+  }
+
+  .lang-btn {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-slate);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .lang-btn:hover {
+    color: var(--color-primary);
+  }
+
+  .lang-btn.active {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .lang-divider {
+    color: var(--color-warm);
+    font-size: 0.875rem;
+    transition: color 0.3s ease;
+  }
+
+  /* Dark section language toggle */
+  .site-header.dark-section .lang-btn {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .site-header.dark-section .lang-btn:hover,
+  .site-header.dark-section .lang-btn.active {
+    color: #ffffff;
+  }
+
+  .site-header.dark-section .lang-divider {
+    color: rgba(255, 255, 255, 0.5);
   }
 
   .header-spacer {
-    height: 4rem;
+    height: 0;
+    display: none;
   }
 
   @media (min-width: 768px) {
     .logo-image {
-      height: 2.5rem;
+      height: 3rem;
     }
 
-    .header-spacer {
-      height: 4.5rem;
+    .lang-btn {
+      font-size: 1rem;
     }
   }
 </style>
+
+<script>
+  // Detect which section is visible and change header colors using Intersection Observer
+  const header = document.querySelector('.site-header');
+  const sections = document.querySelectorAll('.intro-section');
+
+  if (header && sections.length > 0) {
+    // For intro page - detect dark sections
+    const observerOptions = {
+      root: null,
+      rootMargin: '-50% 0px -50% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const section = entry.target;
+
+          // Check if this is section-2 (the black section)
+          if (section.classList.contains('section-2')) {
+            header.classList.add('dark-section');
+          } else {
+            header.classList.remove('dark-section');
+          }
+        }
+      });
+    }, observerOptions);
+
+    // Observe all sections
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  }
+
+  // Language toggle functionality
+  const langButtons = document.querySelectorAll('.lang-btn');
+
+  langButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Remove active class from all buttons
+      langButtons.forEach(btn => btn.classList.remove('active'));
+
+      // Add active class to clicked button
+      button.classList.add('active');
+
+      // Store language preference
+      const lang = button.getAttribute('data-lang');
+      if (lang) {
+        localStorage.setItem('preferredLanguage', lang);
+      }
+    });
+  });
+
+  // Restore language preference on load
+  if (typeof window !== 'undefined') {
+    const savedLang = localStorage.getItem('preferredLanguage');
+    if (savedLang) {
+      langButtons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-lang') === savedLang) {
+          btn.classList.add('active');
+        }
+      });
+    }
+  }
+</script>
