@@ -127,6 +127,7 @@ import Header from '../components/Header.astro';
     width: 100%;
     height: 100%;
     padding: 2rem;
+    padding-top: 6rem;
     gap: 2rem;
   }
 
@@ -197,6 +198,7 @@ import Header from '../components/Header.astro';
 
     .section-3-content {
       padding: 1.5rem;
+      padding-top: 5rem;
       gap: 1.5rem;
     }
 
@@ -359,7 +361,7 @@ import Header from '../components/Header.astro';
     max-width: 65%;
     color: #ffffff;
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     line-height: 1.6;
     text-align: justify;
     z-index: 10;
@@ -374,7 +376,7 @@ import Header from '../components/Header.astro';
     margin-left: auto;
     color: #ffffff;
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     line-height: 1.6;
     text-align: justify;
     z-index: 10;
@@ -387,31 +389,39 @@ import Header from '../components/Header.astro';
     }
 
     .intro-background {
+      position: absolute;
       width: 100%;
       height: 100%;
       right: -20%;
       opacity: 0.8;
+      z-index: 1;
+    }
+
+    .section-2 {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 1.5rem;
+      gap: 3rem;
     }
 
     .intro-text-left {
-      top: 5rem;
-      left: 1.5rem;
-      right: auto;
-      max-width: 75%;
-      font-size: 2rem;
+      position: relative;
+      max-width: 100%;
+      font-size: 1.125rem;
       line-height: 1.5;
       text-align: justify;
+      z-index: 10;
     }
 
     .intro-text-right {
-      bottom: 2rem;
-      right: 1.5rem;
-      left: auto;
-      max-width: 75%;
+      position: relative;
+      max-width: 100%;
       margin-left: 0;
-      font-size: 2rem;
+      font-size: 1.125rem;
       line-height: 1.5;
       text-align: justify;
+      z-index: 10;
     }
 
     .scroll-indicator {
@@ -437,7 +447,7 @@ import Header from '../components/Header.astro';
       left: 2.5rem;
       right: 2.5rem;
       max-width: 70%;
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       line-height: 1.6;
       text-align: justify;
     }
@@ -448,7 +458,7 @@ import Header from '../components/Header.astro';
       left: 2.5rem;
       max-width: 70%;
       margin-left: auto;
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       line-height: 1.6;
       text-align: justify;
     }
@@ -468,7 +478,7 @@ import Header from '../components/Header.astro';
       left: 3rem;
       right: 3rem;
       max-width: 55%;
-      font-size: 1.75rem;
+      font-size: 1.5rem;
       line-height: 1.6;
       text-align: justify;
     }
@@ -479,7 +489,7 @@ import Header from '../components/Header.astro';
       left: 3rem;
       max-width: 60%;
       margin-left: auto;
-      font-size: 1.75rem;
+      font-size: 1.5rem;
       line-height: 1.6;
       text-align: justify;
     }
@@ -499,7 +509,7 @@ import Header from '../components/Header.astro';
       left: 4rem;
       right: 4rem;
       max-width: 50%;
-      font-size: 2rem;
+      font-size: 1.65rem;
       line-height: 1.7;
     }
 
@@ -509,7 +519,7 @@ import Header from '../components/Header.astro';
       left: 4rem;
       max-width: 55%;
       margin-left: auto;
-      font-size: 2rem;
+      font-size: 1.65rem;
       line-height: 1.7;
     }
   }
