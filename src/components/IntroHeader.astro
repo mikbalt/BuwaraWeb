@@ -7,7 +7,7 @@
     <a href="/" class="brand-text">Buwara</a>
     <a href="/" class="logo-link">
       <img
-        src="/images/logo/buwara logo black.png"
+        src="/images/logo/buwara logo blue.png"
         alt="Buwara Logo"
         class="logo-image logo-black"
       />
@@ -60,7 +60,8 @@
     color: var(--color-primary);
     text-decoration: none;
     transition: all 0.3s ease;
-    z-index: 1;
+    z-index: 10;
+    position: relative;
   }
 
   .brand-text:hover {
@@ -78,6 +79,8 @@
     transform: translateX(-50%);
     display: block;
     transition: opacity 0.2s ease;
+    z-index: 5;
+    pointer-events: auto;
   }
 
   .logo-link:hover {
@@ -85,7 +88,7 @@
   }
 
   .logo-image {
-    height: 2rem;
+    height: 2.5rem;
     width: auto;
     display: block;
     transition: opacity 0.3s ease;
@@ -114,8 +117,9 @@
   .language-toggle {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    z-index: 1;
+    gap: 0.01rem;
+    z-index: 10;
+    position: relative;
   }
 
   .lang-btn {
@@ -166,7 +170,7 @@
 
   @media (min-width: 768px) {
     .logo-image {
-      height: 2.5rem;
+      height: 3rem;
     }
 
     .header-spacer {
