@@ -2,9 +2,10 @@
 // Universal header component with dark section detection and language toggle
 interface Props {
   artworkNumber?: string;
+  showBurgerMenu?: boolean;
 }
 
-const { artworkNumber } = Astro.props;
+const { artworkNumber, showBurgerMenu = false } = Astro.props;
 ---
 
 <header class="site-header">
@@ -24,6 +25,14 @@ const { artworkNumber } = Astro.props;
     </a>
     {artworkNumber ? (
       <span class="artwork-number">{artworkNumber}</span>
+    ) : showBurgerMenu ? (
+      <button class="burger-menu" aria-label="Menu" id="burger-menu-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
     ) : (
       <div class="language-toggle">
         <button class="lang-btn active" data-lang="en">EN</button>
@@ -33,6 +42,21 @@ const { artworkNumber } = Astro.props;
     )}
   </div>
 </header>
+
+{showBurgerMenu && (
+  <div class="floating-menu" id="floating-menu">
+    <nav class="floating-menu-nav">
+      <a href="/intro" class="floating-menu-item">Intro</a>
+      <a href="#contact" class="floating-menu-item">Contact</a>
+      <div class="floating-menu-divider"></div>
+      <div class="floating-menu-language">
+        <button class="floating-lang-btn active" data-lang="en">EN</button>
+        <span class="floating-lang-divider">|</span>
+        <button class="floating-lang-btn" data-lang="id">ID</button>
+      </div>
+    </nav>
+  </div>
+)}
 
 <!-- Spacer to prevent content from going under fixed header -->
 <div class="header-spacer"></div>
@@ -136,7 +160,7 @@ const { artworkNumber } = Astro.props;
     position: relative;
   }
 
-  /* Language toggle (for intro/home pages) */
+  /* Language toggle (for intro/home pages - when NOT showing burger menu) */
   .language-toggle {
     display: flex;
     align-items: center;
@@ -184,6 +208,176 @@ const { artworkNumber } = Astro.props;
 
   .site-header.dark-section .lang-divider {
     color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* Burger menu */
+  .burger-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    color: var(--color-primary);
+    transition: all 0.3s ease;
+  }
+
+  .burger-menu:hover {
+    opacity: 0.7;
+  }
+
+  .burger-menu svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Dark section burger menu */
+  .site-header.dark-section .burger-menu {
+    color: #ffffff;
+  }
+
+  /* Floating menu - Modern Design */
+  .floating-menu {
+    position: fixed;
+    top: 4.5rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(61, 79, 83, 0.12),
+                0 2px 8px rgba(61, 79, 83, 0.08);
+    border: 1px solid rgba(61, 79, 83, 0.08);
+    z-index: 90;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px) scale(0.95);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 160px;
+    overflow: hidden;
+  }
+
+  .floating-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  .floating-menu-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    gap: 0.25rem;
+  }
+
+  .floating-menu-item {
+    font-family: 'Forta', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .floating-menu-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(61, 79, 83, 0.06), rgba(61, 79, 83, 0.03));
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .floating-menu-item:hover {
+    background-color: rgba(61, 79, 83, 0.05);
+    transform: translateX(2px);
+  }
+
+  .floating-menu-item:hover::before {
+    opacity: 1;
+  }
+
+  .floating-menu-divider {
+    height: 1px;
+    background: linear-gradient(90deg,
+      rgba(61, 79, 83, 0) 0%,
+      rgba(61, 79, 83, 0.1) 50%,
+      rgba(61, 79, 83, 0) 100%);
+    margin: 0.25rem 0;
+  }
+
+  .floating-menu-language {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(61, 79, 83, 0.02);
+    border-radius: 10px;
+    margin: 0.25rem 0;
+  }
+
+  .floating-lang-btn {
+    font-family: 'Forta', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--color-slate);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0.375rem 0.625rem;
+    border-radius: 6px;
+    letter-spacing: 0.025em;
+  }
+
+  .floating-lang-btn:hover {
+    color: var(--color-primary);
+    background-color: rgba(61, 79, 83, 0.05);
+  }
+
+  .floating-lang-btn.active {
+    color: #ffffff;
+    background-color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .floating-lang-divider {
+    color: var(--color-warm);
+    font-size: 0.75rem;
+    opacity: 0.5;
+  }
+
+  @media (min-width: 768px) {
+    .floating-menu {
+      top: 5rem;
+      right: 1.5rem;
+      min-width: 180px;
+      border-radius: 18px;
+    }
+
+    .floating-menu-nav {
+      padding: 0.625rem;
+    }
+
+    .floating-menu-item {
+      font-size: 1rem;
+      padding: 0.875rem 1.25rem;
+      border-radius: 12px;
+    }
+
+    .floating-lang-btn {
+      font-size: 0.875rem;
+      padding: 0.5rem 0.75rem;
+    }
+
+    .floating-menu-language {
+      padding: 0.875rem 1.25rem;
+    }
   }
 
   .header-spacer {
@@ -268,6 +462,64 @@ const { artworkNumber } = Astro.props;
           btn.classList.add('active');
         }
       });
+    }
+  }
+
+  // Floating menu functionality
+  const burgerMenuBtn = document.getElementById('burger-menu-btn');
+  const floatingMenu = document.getElementById('floating-menu');
+
+  if (burgerMenuBtn && floatingMenu) {
+    // Toggle menu
+    burgerMenuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      floatingMenu.classList.toggle('active');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!floatingMenu.contains(e.target as Node) && e.target !== burgerMenuBtn) {
+        floatingMenu.classList.remove('active');
+      }
+    });
+
+    // Close menu with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && floatingMenu.classList.contains('active')) {
+        floatingMenu.classList.remove('active');
+      }
+    });
+
+    // Handle language toggle in floating menu
+    const floatingLangButtons = floatingMenu.querySelectorAll('.floating-lang-btn');
+
+    floatingLangButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons
+        floatingLangButtons.forEach(btn => btn.classList.remove('active'));
+
+        // Add active class to clicked button
+        button.classList.add('active');
+
+        // Store language preference
+        const lang = button.getAttribute('data-lang');
+        if (lang) {
+          localStorage.setItem('preferredLanguage', lang);
+        }
+      });
+    });
+
+    // Restore language preference on load
+    if (typeof window !== 'undefined') {
+      const savedLang = localStorage.getItem('preferredLanguage');
+      if (savedLang) {
+        floatingLangButtons.forEach(btn => {
+          btn.classList.remove('active');
+          if (btn.getAttribute('data-lang') === savedLang) {
+            btn.classList.add('active');
+          }
+        });
+      }
     }
   }
 </script>
