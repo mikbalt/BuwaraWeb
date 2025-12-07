@@ -1,98 +1,51 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import Header from '../components/Header.astro';
-import artworksData from '../data/artworks.json';
 ---
 
 <MainLayout title="Buwara - We are all wanderers" showSplash={true}>
   <Header />
 
   <div class="homepage">
-    <!-- Hero Section -->
-    <section class="hero-section">
-      <div class="hero-container">
-        <div class="hero-content">
-          <h1 class="hero-title">Discover Art Through Stories</h1>
-          <p class="hero-description">
-            Eksplorasi karya seni melalui narasi yang mendalam.
-            Setiap karya memiliki cerita, setiap lokasi memiliki makna.
+    <!-- Map Section -->
+    <section class="map-section">
+      <!-- Map Image -->
+      <div class="map-image-wrapper">
+        <img
+          src="/images/illustrations/home-map.jpeg"
+          alt="Buwara Map"
+          class="map-image"
+        />
+      </div>
+
+      <!-- Map Content -->
+      <div class="map-content">
+        <div class="container-narrow">
+          <h1 class="map-title">BUWARA MAP</h1>
+
+          <!-- Journeys List -->
+          <div class="journeys-list">
+            <div class="journey-item">JOURNEY 01 - PAST & PRESENT</div>
+            <div class="journey-item">JOURNEY 02 - FUTURE</div>
+          </div>
+
+          <!-- Description -->
+          <p class="map-description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           </p>
-          <div class="hero-divider"></div>
+
+          <!-- Rumah Adat -->
+          <div class="rumah-adat-wrapper">
+            <img
+              src="/images/illustrations/home_rumah.png"
+              alt="Traditional House"
+              class="rumah-adat-image"
+            />
+            <p class="rumah-adat-caption">IMAGE 01 - TITLE</p>
+          </div>
         </div>
       </div>
     </section>
-
-    <!-- Featured Artwork (Latest/First) -->
-    {artworksData[0] && (
-      <section class="featured-section">
-        <div class="container-narrow">
-          <div class="featured-label">Featured Artwork</div>
-          <a href={`/artwork/${artworksData[0].id}`} class="featured-card">
-            <div class="featured-image-wrapper">
-              <img
-                src={artworksData[0].image1}
-                alt={artworksData[0].title}
-                class="featured-image"
-              />
-            </div>
-            <div class="featured-content">
-              <div class="featured-meta">
-                <span class="featured-location">{artworksData[0].location}</span>
-                <span class="featured-divider">•</span>
-                <span class="featured-date">{artworksData[0].date}</span>
-              </div>
-              <h2 class="featured-title">{artworksData[0].title}</h2>
-              {artworksData[0].subtitle && (
-                <p class="featured-subtitle">{artworksData[0].subtitle}</p>
-              )}
-              <p class="featured-artist">by {artworksData[0].artist}</p>
-              <div class="featured-excerpt">
-                {artworksData[0].paragraphs[0].substring(0, 180)}...
-              </div>
-              <div class="read-more">
-                <span>Baca Selengkapnya</span>
-                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-              </div>
-            </div>
-          </a>
-        </div>
-      </section>
-    )}
-
-    <!-- All Artworks Grid -->
-    {artworksData.length > 1 && (
-      <section class="artworks-section">
-        <div class="container-narrow">
-          <h2 class="section-title">All Artworks</h2>
-          <div class="artworks-grid">
-            {artworksData.slice(1).map((artwork) => (
-              <a href={`/artwork/${artwork.id}`} class="artwork-card">
-                <div class="card-image">
-                  <img
-                    src={artwork.image1}
-                    alt={artwork.title}
-                    class="artwork-thumbnail"
-                    loading="lazy"
-                  />
-                  <div class="card-overlay">
-                    <span class="view-artwork">View Artwork</span>
-                  </div>
-                </div>
-                <div class="card-content">
-                  <div class="card-meta">
-                    <span class="card-location">{artwork.location}</span>
-                  </div>
-                  <h3 class="card-title">{artwork.title}</h3>
-                  <p class="card-artist">{artwork.artist}</p>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-    )}
 
     <!-- Footer -->
     <footer class="homepage-footer">
@@ -101,7 +54,7 @@ import artworksData from '../data/artworks.json';
           <div class="footer-logo">
             <img src="/images/logo/buwara logo black.png" alt="Buwara" class="footer-logo-img" />
           </div>
-          <p class="footer-tagline">Connecting Art, Place, and Story</p>
+          <p class="footer-tagline">We are all wanderers</p>
           <div class="social-links">
             <a href="https://instagram.com/buwara" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
               <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -128,266 +81,111 @@ import artworksData from '../data/artworks.json';
 <style>
   .homepage {
     min-height: 100vh;
+    background-color: var(--color-background);
   }
 
-  /* Hero Section */
-  .hero-section {
-    padding: 4rem 0 3rem;
-  }
-
-  .hero-container {
+  /* Container */
+  .container-narrow {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 1rem;
   }
 
-  .hero-content {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto;
+  /* Map Section */
+  .map-section {
+    padding: 0;
+    padding-top: 4.5rem;
   }
 
-  .hero-title {
-    font-size: 2.5rem;
-    font-weight: 400;
-    line-height: 1.2;
-    color: var(--color-primary);
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.02em;
+  /* Map Image */
+  .map-image-wrapper {
+    width: 100%;
+    max-height: 60vh;
+    overflow: hidden;
+    background-color: var(--color-warm);
   }
 
-  .hero-description {
+  .map-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
+  /* Map Content */
+  .map-content {
+    padding: 1.5rem 0;
+    position: relative;
+  }
+
+  .map-title {
+    font-family: 'Forta', sans-serif;
     font-size: 1.125rem;
-    line-height: 1.7;
-    color: var(--color-secondary);
-    margin-bottom: 2rem;
-  }
-
-  .hero-divider {
-    width: 60px;
-    height: 2px;
-    background-color: var(--color-slate);
-    margin: 0 auto;
-  }
-
-  /* Featured Section */
-  .featured-section {
-    padding: 3rem 0;
-  }
-
-  .featured-label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--color-slate);
-    margin-bottom: 1.5rem;
-  }
-
-  .featured-card {
-    display: block;
-    background-color: var(--color-surface);
-    border-radius: 2px;
-    overflow: hidden;
-    box-shadow: 0 4px 16px rgba(61, 79, 83, 0.1);
-    transition: all 0.3s ease;
-    text-decoration: none;
-  }
-
-  .featured-card:hover {
-    box-shadow: 0 8px 24px rgba(61, 79, 83, 0.15);
-    transform: translateY(-4px);
-  }
-
-  .featured-image-wrapper {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    overflow: hidden;
-    background-color: var(--color-warm);
-  }
-
-  .featured-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-  }
-
-  .featured-card:hover .featured-image {
-    transform: scale(1.05);
-  }
-
-  .featured-content {
-    padding: 2rem;
-  }
-
-  .featured-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.875rem;
-    color: var(--color-slate);
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
     margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
   }
 
-  .featured-divider {
-    color: var(--color-warm);
-  }
-
-  .featured-title {
-    font-size: 2rem;
-    font-weight: 600;
-    line-height: 1.2;
-    color: var(--color-primary);
-    margin-bottom: 0.75rem;
-  }
-
-  .featured-subtitle {
-    font-size: 1.25rem;
-    font-style: italic;
-    color: var(--color-secondary);
-    margin-bottom: 0.75rem;
-    font-weight: 300;
-  }
-
-  .featured-artist {
-    font-size: 0.9375rem;
-    color: var(--color-secondary);
-    margin-bottom: 1.5rem;
-  }
-
-  .featured-excerpt {
-    font-size: 1rem;
-    line-height: 1.7;
-    color: var(--color-text);
-    margin-bottom: 1.5rem;
-  }
-
-  .read-more {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: var(--color-primary);
-    transition: gap 0.2s ease;
-  }
-
-  .featured-card:hover .read-more {
-    gap: 0.75rem;
-  }
-
-  /* Artworks Grid Section */
-  .artworks-section {
-    padding: 4rem 0;
-  }
-
-  .section-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--color-primary);
-    margin-bottom: 2rem;
-  }
-
-  .artworks-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .artwork-card {
-    display: block;
-    background-color: var(--color-surface);
-    border-radius: 2px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(61, 79, 83, 0.08);
-    transition: all 0.3s ease;
-    text-decoration: none;
-  }
-
-  .artwork-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(61, 79, 83, 0.15);
-  }
-
-  .card-image {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    overflow: hidden;
-    background-color: var(--color-warm);
-  }
-
-  .artwork-thumbnail {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .card-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(61, 79, 83, 0.8);
+  /* Journeys List */
+  .journeys-list {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 1.25rem;
   }
 
-  .view-artwork {
-    color: white;
-    font-size: 0.9375rem;
-    font-weight: 600;
+  .journey-item {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-primary);
     letter-spacing: 0.05em;
     text-transform: uppercase;
   }
 
-  .artwork-card:hover .card-overlay {
-    opacity: 1;
+  /* Map Description */
+  .map-description {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--color-primary);
+    text-align: justify;
+    margin-bottom: 3.5rem;
+    max-width: 50%;
   }
 
-  .artwork-card:hover .artwork-thumbnail {
-    transform: scale(1.1);
+  /* Rumah Adat */
+  .rumah-adat-wrapper {
+    position: absolute;
+    top: 8.5rem;
+    right: 1rem;
+    text-align: center;
+    max-width: 200px;
   }
 
-  .card-content {
-    padding: 1.5rem;
+  .rumah-adat-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 0.15rem auto;
   }
 
-  .card-meta {
-    margin-bottom: 0.5rem;
-  }
-
-  .card-location {
-    font-size: 0.875rem;
-    color: var(--color-slate);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .card-title {
-    font-size: 1.25rem;
+  .rumah-adat-caption {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.55rem;
     font-weight: 600;
     color: var(--color-primary);
-    margin-bottom: 0.5rem;
-    line-height: 1.3;
-  }
-
-  .card-artist {
-    font-size: 0.9375rem;
-    color: var(--color-secondary);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-align: right;
   }
 
   /* Footer */
   .homepage-footer {
-    padding: 4rem 0 2rem;
+    padding: 2rem 0 2rem;
     border-top: 1px solid var(--color-warm);
-    margin-top: 4rem;
+    margin-top: 2rem;
   }
 
   .footer-content {
@@ -441,41 +239,124 @@ import artworksData from '../data/artworks.json';
 
   /* Responsive */
   @media (min-width: 640px) {
-    .artworks-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2.5rem;
+    .container-narrow {
+      padding: 0 1.5rem;
+    }
+
+    .map-image-wrapper {
+      max-height: 65vh;
+    }
+
+    .map-content {
+      padding: 2rem 0;
+    }
+
+    .map-title {
+      font-size: 1.25rem;
+    }
+
+    .journey-item {
+      font-size: 0.8125rem;
+    }
+
+    .map-description {
+      font-size: 0.875rem;
+      margin-bottom: 5rem;
+      max-width: 55%;
+    }
+
+    .rumah-adat-wrapper {
+      top: 9rem;
+      right: 1.5rem;
+      max-width: 185px;
+    }
+
+    .rumah-adat-caption {
+      font-size: 0.6rem;
     }
   }
 
   @media (min-width: 768px) {
-    .hero-section {
-      padding: 6rem 0 4rem;
+    .map-section {
+      padding-top: 5rem;
     }
 
-    .hero-title {
-      font-size: 3.5rem;
+    .map-image-wrapper {
+      max-height: 70vh;
     }
 
-    .hero-description {
-      font-size: 1.25rem;
+    .map-content {
+      padding: 2.5rem 0;
     }
 
-    .featured-content {
-      padding: 3rem;
-    }
-
-    .featured-title {
-      font-size: 2.5rem;
-    }
-
-    .featured-subtitle {
+    .map-title {
       font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .journeys-list {
+      gap: 0.3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .journey-item {
+      font-size: 0.875rem;
+    }
+
+    .map-description {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 6rem;
+      max-width: 58%;
+    }
+
+    .rumah-adat-wrapper {
+      top: 10rem;
+      right: 2rem;
+      max-width: 180px;
+    }
+
+    .rumah-adat-caption {
+      font-size: 0.65rem;
     }
   }
 
   @media (min-width: 1024px) {
-    .artworks-grid {
-      grid-template-columns: repeat(3, 1fr);
+    .container-narrow {
+      padding: 0 2rem;
+    }
+
+    .map-image-wrapper {
+      max-height: none;
+    }
+
+    .map-content {
+      padding: 3rem 0;
+    }
+
+    .map-title {
+      font-size: 1.75rem;
+    }
+
+    .journey-item {
+      font-size: 0.9375rem;
+    }
+
+    .map-description {
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      margin-bottom: 7rem;
+      max-width: 60%;
+    }
+
+    .rumah-adat-wrapper {
+      top: 11rem;
+      right: 3rem;
+      max-width: 220px;
+    }
+
+    .rumah-adat-caption {
+      font-size: 0.75rem;
     }
   }
 </style>
@@ -489,5 +370,34 @@ import artworksData from '../data/artworks.json';
     if (!hasVisitedIntro) {
       window.location.href = '/intro';
     }
+  }
+
+  // Hide header on scroll down, show on scroll up or at top
+  const header = document.querySelector('.site-header') as HTMLElement;
+  let lastScrollTop = 0;
+
+  if (header) {
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      // If at top of page (within 50px), always show header
+      if (scrollTop <= 50) {
+        header.style.opacity = '1';
+        header.style.transform = 'translateY(0)';
+      } else {
+        // Scrolling down - hide header
+        if (scrollTop > lastScrollTop) {
+          header.style.opacity = '0';
+          header.style.transform = 'translateY(-100%)';
+        }
+        // Scrolling up - show header
+        else {
+          header.style.opacity = '1';
+          header.style.transform = 'translateY(0)';
+        }
+      }
+
+      lastScrollTop = scrollTop;
+    }, { passive: true });
   }
 </script>
