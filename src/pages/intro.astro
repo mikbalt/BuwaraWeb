@@ -127,20 +127,20 @@ import Header from '../components/Header.astro';
     width: 100%;
     min-height: 100dvh;
     padding: 2rem;
-    padding-top: 8rem;
-    gap: 2rem;
+    padding-top: 12rem;
+    gap: 0.25rem;
   }
 
   .section-3-text-1 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1rem;
+    font-size: 0.875rem;
     color: #3d4f53;
     text-align: left;
     max-width: 300px;
   }
 
   .intro-3-image {
-    max-width: 50%;
+    max-width: 40%;
     height: auto;
     object-fit: contain;
   }
@@ -151,13 +151,13 @@ import Header from '../components/Header.astro';
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 1.5rem;
+    gap: 0.5rem;
   }
 
   .section-3-text-2 {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.5rem;
-    line-height: 1.5;
+    font-size: 1.125rem;
+    line-height: 1.6;
     color: #3d4f53;
     text-align: left;
     width: 100%;
@@ -180,11 +180,11 @@ import Header from '../components/Header.astro';
     }
 
     .intro-3-image {
-      max-width: 60%;
+      max-width: 35%;
     }
 
     .section-3-text-1 {
-      font-size: 0.875rem;
+      font-size: 0.75rem;
       max-width: 90%;
       margin-top: 0;
     }
@@ -195,14 +195,14 @@ import Header from '../components/Header.astro';
     }
 
     .section-3-text-2 {
-      font-size: 1.25rem;
-      line-height: 1.4;
+      font-size: 0.875rem;
+      line-height: 1.5;
     }
 
     .section-3-content {
       padding: 1rem;
-      padding-top: 7.5rem;
-      gap: 1rem;
+      padding-top: 10.5rem;
+      gap: 0.25rem;
       justify-content: flex-start;
     }
 
@@ -214,26 +214,44 @@ import Header from '../components/Header.astro';
   /* Tablet adjustments for section 3 */
   @media (min-width: 641px) and (max-width: 1024px) {
     .intro-3-image {
-      max-width: 60%;
+      max-width: 45%;
+    }
+
+    .section-3-text-1 {
+      font-size: 0.875rem;
     }
 
     .section-3-text-2 {
-      font-size: 2.5rem;
+      font-size: 1.25rem;
     }
 
     .section-3-text-container {
       padding: 0 2rem;
     }
+
+    .section-3-content {
+      padding-top: 11rem;
+      gap: 0.25rem;
+    }
   }
 
   /* Desktop adjustments for section 3 */
   @media (min-width: 1025px) {
+    .section-3-text-1 {
+      font-size: 1rem;
+    }
+
     .section-3-text-2 {
-      font-size: 3rem;
+      font-size: 1.5rem;
     }
 
     .section-3-text-container {
       padding: 0 3rem;
+    }
+
+    .section-3-content {
+      padding-top: 12rem;
+      gap: 0.5rem;
     }
   }
 
